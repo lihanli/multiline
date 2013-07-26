@@ -1,6 +1,7 @@
 (function () {
   var dom = {
       input: $('#input'),
+      quoteRadio: $('input[name="quoteRadio"]'),
       output: $('#output')
     }
     , getLeadingWhiteSpaceCount = function (string) {
@@ -8,7 +9,14 @@
         characterCode = string.charCodeAt(++result);
       }
       return result;
-    };
+    }
+    , quoteMark = dom.quoteRadio.filter('[checked]').val();
+
+  dom.quoteRadio.on('change', function () {
+    quoteMark = $(this).val();
+
+    dom.input.trigger('input');
+  });
 
   dom.input.on('input', function (e) {
     var finalStr = ''
@@ -25,7 +33,7 @@
           finalStr += ' ';
         }
 
-        finalStr += "'" + trimmed.replace(/'/g, "\\'") + "'";
+        finalStr += quoteMark + trimmed.replace(new RegExp(quoteMark, 'g'), '\\' + quoteMark) + quoteMark;
 
         if (i !== inputSplitLastIdx) finalStr += ' +\n';
       }
