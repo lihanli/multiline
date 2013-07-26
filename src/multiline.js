@@ -18,6 +18,11 @@
     dom.input.trigger('input');
   });
 
+  dom.output.click(function (e) {
+    e.preventDefault();
+    this.select();
+  });
+
   dom.input.on('input', function (e) {
     var finalStr = ''
       , inputSplit = $.trim(dom.input.val()).split('\n')
