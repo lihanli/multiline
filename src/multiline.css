@@ -2,3 +2,7 @@ textarea {
   width: 400px;
   height: 200px;
 }
+
+textarea[readonly] {
+  cursor: pointer;
+}
