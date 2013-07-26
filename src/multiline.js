@@ -12,7 +12,8 @@
 
   dom.input.on('input', function (e) {
     var finalStr = ''
-      , inputSplit = $.trim(dom.input.val()).split('\n');
+      , inputSplit = $.trim(dom.input.val()).split('\n')
+      , inputSplitLastIdx = inputSplit.length - 1;
 
     inputSplit.forEach(function (line, i) {
       var trimmed = $.trim(line);
@@ -26,7 +27,7 @@
 
         finalStr += "'" + trimmed.replace(/'/g, "\\'") + "'";
 
-        if (i !== inputSplit.length - 1) finalStr += ' +\n';
+        if (i !== inputSplitLastIdx) finalStr += ' +\n';
       }
 
       dom.output.val(finalStr);
