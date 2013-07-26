@@ -10,10 +10,27 @@
       }
       return result;
     }
-    , quoteMark = dom.quoteRadio.filter('[checked]').val();
+    , getFromLocalStorage = function(key) {
+      var value = window.localStorage[key];
+      if (value) {
+        return $.parseJSON(value);
+      }
+      return null;
+    }
+    , putInLocalStorage = function (key, value) {
+      window.localStorage[key] = JSON.stringify(value);
+    }
+    , quoteMark = getFromLocalStorage('defaultQuoteMark') || "'";
+
+  (function () {
+    var opposite = quoteMark === '"' ? "'" : '"';
+
+    dom.quoteRadio.filter('[value=' + opposite + quoteMark + opposite + ']').prop('checked', true);
+  })();
 
   dom.quoteRadio.on('change', function () {
     quoteMark = $(this).val();
+    putInLocalStorage('defaultQuoteMark', quoteMark);
 
     dom.input.trigger('input');
   });
