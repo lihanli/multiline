@@ -55,7 +55,9 @@
           finalStr += ' ';
         }
 
-        finalStr += quoteMark + trimmed.replace(new RegExp(quoteMark, 'g'), '\\' + quoteMark) + quoteMark;
+        finalStr += quoteMark +
+          trimmed.replace(/\\/g, '\\\\').replace(new RegExp(quoteMark, 'g'), '\\' + quoteMark) +
+          quoteMark;
 
         if (i !== inputSplitLastIdx) finalStr += ' +\n';
       }
